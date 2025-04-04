@@ -67,6 +67,10 @@ class LetPotDeviceClient:
         self._user_id = info.user_id
         self._email = info.email
         self._device_serial = device_serial
+        _LOGGER.debug("_user_id: %s", self._user_id)
+        _LOGGER.debug("_email: %s", self._email)
+        _LOGGER.debug("_device_serial: %s", self._device_serial)
+
 
         device_type = self._device_serial[:5]
         for converter in CONVERTERS:
@@ -200,6 +204,7 @@ class LetPotDeviceClient:
         password = sha256(
             f"{self._user_id}|{md5(username.encode()).hexdigest()}".encode()
         ).hexdigest()
+        _LOGGER.debug("password: %s", password)
         connection_attempts = 0
         while self._converter is not None:
             try:
